@@ -1,5 +1,6 @@
 import React from 'react';
 import './ImageSlider.scss'
+import { gsap } from 'gsap';
 
 const { gsap, imagesLoaded } = window;
 
@@ -11,10 +12,6 @@ const cardsContainerEl = document.getElementsByClassName("cards__wrapper")[0];
 const appBgContainerEl = document.getElementsByClassName("app__bg")[0];
 
 const cardInfosContainerEl = document.getElementsByClassName("info__wrapper")[0];
-
-// buttons.next.addEventListener("click", () => swapCards("right"));
-
-// buttons.prev.addEventListener("click", () => swapCards("left"));
 
 if (buttons.next) {
   buttons.next.addEventListener("click", () => swapCards("right"));
@@ -171,16 +168,6 @@ function resetCardTransforms(e) {
 	});
 }
 
-// function initCardEvents() {
-// 	const currentCardEl = cardsContainerEl.getElementsByClassName(".current--card");
-// 	currentCardEl.addEventListener("pointermove", updateCard);
-// 	currentCardEl.addEventListener("pointerout", (e) => {
-// 		resetCardTransforms(e);
-// 	});
-// }
-
-//testing to get rid of errors
-
 function initCardEvents() {
   const cardsContainerEl = document.querySelector(".cards__wrapper");
 
@@ -235,42 +222,43 @@ function init() {
 }
 
 const waitForImages = () => {
-	const images = Array.from(document.getElementsByClassName("img"));
+	//const images = Array.from(document.getElementsByClassName("img"));
+	//const images = Array.from(document.getElementById("img"));
+	const images = [...document.querySelectorAll("img")];
 	const totalImages = images.length;
 	let loadedImages = 0;
 	const loaderEl = document.getElementsByClassName("loader span");
 
-	// gsap.set(cardsContainerEl.children, {
-	// 	"--card-translateY-offset": "100vh",
-	// });
-	// gsap.set(cardInfosContainerEl.getElementsByClassName("current--info").getElementsByClassNameAll("text"), {
-	// 	translateY: "40px",
-	// 	opacity: 0,
-	// });
-	// gsap.set([buttons.prev, buttons.next], {
-	// 	pointerEvents: "none",
-	// 	opacity: "0",
-	// });
+  const cardsContainerEl = document.querySelector(".cards__wrapper");
+  const currentInfoEl = document.querySelector(".info__wrapper .current--info");
 
-  //testing code
+  if (cardsContainerEl) {
+    const cardElements = Array.from(cardsContainerEl.querySelectorAll(".card"));
+    cardElements.forEach((card) => {
+      gsap.set(card, {
+        "--card-translateY-offset": "100vh",
+      });
+    });
+  }
 
-  gsap.set(cardsContainerEl.children, {
-    "--card-translateY-offset": "100vh",
-  });
-  
-  const currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
-  const textElements = currentInfoEl.querySelectorAll(".text");
-  
-  gsap.set(textElements, {
-    translateY: "40px",
-    opacity: 0,
-  });
-  
-  gsap.set([buttons.prev, buttons.next], {
-    pointerEvents: "none",
-    opacity: "0",
-  });
-  
+  if (currentInfoEl) {
+    const textElements = Array.from(currentInfoEl.querySelectorAll(".text"));
+    textElements.forEach((text) => {
+      gsap.set(text, {
+        translateY: "40px",
+        opacity: 0,
+      });
+    });
+  }
+
+  const buttonsArray = [buttons.prev, buttons.next];
+  if (gsap) {
+    gsap.set(buttonsArray, {
+      pointerEvents: "none",
+      opacity: "0",
+    });
+  }
+
 
 	images.forEach((image) => {
 		imagesLoaded(image, (instance) => {
@@ -388,18 +376,16 @@ export default function ImageSlider() {
         </div>
 
 
-        <svg className="icons" style="display: none;">
-        <symbol id="arrow-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <polyline points='328 112 184 256 328 400'
-                style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
-        </symbol>
-        <symbol id="arrow-right" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <polyline points='184 112 328 256 184 400'
-                style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
-        </symbol>
+        <svg className="icons" style={{ display: 'none' }}>
+          <symbol id="arrow-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+            <polyline points='328 112 184 256 328 400'
+              style={{ fill: 'none', stroke: '#fff', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '48px' }} />
+          </symbol>
+          <symbol id="arrow-right" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+            <polyline points='184 112 328 256 184 400'
+              style={{ fill: 'none', stroke: '#fff', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '48px' }} />
+          </symbol>
         </svg>
-
-
 
 
 
