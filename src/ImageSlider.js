@@ -1,6 +1,8 @@
 import React from 'react';
-import './ImageSlider.scss'
+//import './ImageSlider.scss'
+import './ImageSider.css'
 import { gsap } from 'gsap';
+import { svg } from "react-svg"
 
 const { gsap, imagesLoaded } = window;
 
@@ -8,10 +10,10 @@ const buttons = {
 	prev: document.getElementsByClassName("btn--left")[0],
 	next: document.getElementsByClassName("btn--right")[0],
 };
-const cardsContainerEl = document.getElementsByClassName("cards__wrapper")[0];
-const appBgContainerEl = document.getElementsByClassName("app__bg")[0];
+const cardsContainerEl = document.getElementsByClassName("cards__wrapper");
+const appBgContainerEl = document.getElementsByClassName("app__bg");
 
-const cardInfosContainerEl = document.getElementsByClassName("info__wrapper")[0];
+const cardInfosContainerEl = document.getElementsByClassName("info__wrapper");
 
 if (buttons.next) {
   buttons.next.addEventListener("click", () => swapCards("right"));
@@ -151,7 +153,7 @@ function updateCard(e) {
 	gsap.set(card, {
 		"--current-card-rotation-offset": `${angle}deg`,
 	});
-	const currentInfoEl = cardInfosContainerEl.getElementsByClassName("current--info")[0];
+	const currentInfoEl = cardInfosContainerEl.getElementsByClassName("current--info");
 	gsap.set(currentInfoEl, {
 		rotateY: `${angle}deg`,
 	});
@@ -159,7 +161,7 @@ function updateCard(e) {
 
 function resetCardTransforms(e) {
 	const card = e.currentTarget;
-	const currentInfoEl = cardInfosContainerEl.getElementsByClassName("current--info")[0];
+	const currentInfoEl = cardInfosContainerEl.getElementsByClassName("current--info");
 	gsap.set(card, {
 		"--current-card-rotation-offset": 0,
 	});
@@ -172,7 +174,7 @@ function initCardEvents() {
   const cardsContainerEl = document.querySelector(".cards__wrapper");
 
   if (cardsContainerEl) {
-    const currentCardEl = cardsContainerEl.getElementsByClassName("current--card")[0];
+    const currentCardEl = cardsContainerEl.getElementsByClassName("current--card");
 
     if (currentCardEl) {
       currentCardEl.addEventListener("pointermove", updateCard);
@@ -222,9 +224,8 @@ function init() {
 }
 
 const waitForImages = () => {
-	//const images = Array.from(document.getElementsByClassName("img"));
-	//const images = Array.from(document.getElementById("img"));
-	const images = [...document.querySelectorAll("img")];
+	const images = Array.from(document.getElementsByClassName("img1"));
+	//const images = [...document.querySelectorAll("img")];
 	const totalImages = images.length;
 	let loadedImages = 0;
 	const loaderEl = document.getElementsByClassName("loader span");
@@ -298,7 +299,7 @@ export default function ImageSlider() {
           <button className="cardList__btn btn btn--left">
             <div className="icon">
               <svg>
-                <use xlink:href="#arrow-left"></use>
+                <use xlinkHref="#arrow-left"></use>
               </svg>
             </div>
           </button>
@@ -306,19 +307,19 @@ export default function ImageSlider() {
           <div className="cards__wrapper">
             <div className="card current--card">
               <div className="card__image">
-                <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
+                <img className='img' src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
               </div>
             </div>
 
             <div className="card next--card">
               <div className="card__image">
-                <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
+                <img className='img' src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
               </div>
             </div>
 
             <div className="card previous--card">
               <div className="card__image">
-                <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
+                <img className='img' src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
               </div>
             </div>
           </div>
@@ -326,7 +327,7 @@ export default function ImageSlider() {
           <button className="cardList__btn btn btn--right">
             <div className="icon">
               <svg>
-                <use xlink:href="#arrow-right"></use>
+                <use xlinkHref="#arrow-right"></use>
               </svg>
             </div>
           </button>
@@ -357,13 +358,13 @@ export default function ImageSlider() {
 
         <div className="app__bg">
           <div className="app__bg__image current--image">
-            <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
+            <img className='img1' src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
           </div>
           <div className="app__bg__image next--image">
-            <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
+            <img className='img1' src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
           </div>
           <div className="app__bg__image previous--image">
-            <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
+            <img className='img1' src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
           </div>
         </div>
         </div>

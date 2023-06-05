@@ -6,7 +6,9 @@
     "gsap": "^3.11.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sass": "^1.62.1"
+    "react-svg": "^16.1.15",
+    "sass": "^1.62.1",
+    "sprite": "^0.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
